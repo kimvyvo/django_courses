@@ -1,0 +1,27 @@
+<!doctype html>
+
+<html>
+    <head>
+        <title></title>
+        <meta charset='utf-8'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body class='p-3 text-center'>
+        <h3>Are you sure you want to delete the following course?</h3>
+        <div class='row mb-2'>
+            <label class='col text-right'>Name: </label>
+            <p class='col text-left'>{{ course.name }}</p>
+        </div>
+        <div class='row mb-2'>
+            <label class='col text-right'>Description: </label>
+            <p class='col text-left'>{{ course.desc }}</p>
+        </div>
+        <div class='row mb-2 mx-auto'>
+            <div class='col text-right'><a class='btn btn-dark' href='/'>No</a></div>
+            <form class='col text-left' action='/destroy/{{ course.id }}' method='post'>
+            {% csrf_token %}
+                <button class='btn btn-danger'>Yes, I want to delete this course.</button>
+            </form>
+        </div>
+    </body>
+</html>

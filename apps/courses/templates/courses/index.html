@@ -1,0 +1,54 @@
+<!doctype html>
+
+<html>
+    <head>
+        <title></title>
+        <meta charset='utf-8'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body class='p-3'>
+        <h3>Add New Course</h3>
+        {% if messages %}
+        <p class='text-warning'>
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </p>
+        {% endif %}
+        <form action='/add' method='post'>
+        {% csrf_token %}
+            <div class='row mb-2'>
+                <label class='col col-sm-2'>Name: </label>
+                <input class='col col-sm-3' type='text' name='name' value='{{ request.session.name }}'>
+            </div>
+            <div class='row mb-2'>
+                <label class='col col-sm-2'>Description: </label>
+                <textarea class='col col-sm-3' name='desc'>{{ request.session.desc }}</textarea>
+            </div>
+            <div class='col col-sm-5 text-right'><button class='btn btn-info'>Add</button></div>
+        </form>
+        <h3>Courses</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Course Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Date Added</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.name }}</td>
+                    <td>{{ course.desc }}</td>
+                    <td>{{ course.created_at }}</td>
+                    <td>
+                        <a href='/remove/{{ course.id }}'>remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
